@@ -25,7 +25,7 @@
         
         function trabajaMucho(){
           datos1 = contexto.getImageData(x,y,bucket,bucket)        // Leo la primera cuarta parte en vertical de la imagen de la imagen (cargo  con una cuarta parte de lo que cargaba antes)
-          var trabajador = new Worker("009-worker.js");         // Creo una nueva instancia de un worker y lo pongo en el identificador llamado trabajador
+          var trabajador = new Worker("010-worker.js");         // Creo una nueva instancia de un worker y lo pongo en el identificador llamado trabajador
           trabajador.postMessage(datos1.data)                   // tomo los datos y se los envío al worker
           ///////////////////////////////////////////////////// Y ahora me olvido porque yo ya le he enviado los datos al trabajador, y ya si eso el trabajador me dirá algo
           trabajador.onmessage = function(misdatos){            // Cuando el trabajador finaliza me devuelve un mensaje
