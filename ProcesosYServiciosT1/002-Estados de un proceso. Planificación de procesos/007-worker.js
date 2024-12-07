@@ -1,19 +1,30 @@
-onmessage = function(datos){
-    console.log("worker arrancado, vamos a trabajar")
-    for(let i = 0;i<datos.data.length;i+=4){              // Recorro cada pixel
-        let c = datos.data                                  // Cargo los datos de ese pixel
-        for(let i = 0; i<100;i++){                      // Fuerzo miles de ćalculos más para apretar al procesador
-          c[i] *= 1.00000000045
-          c[i+1] *= 1.00000000045
-          c[i+2] *= 1.00000000045
-        }
-        let gris = Math.round((c[i] + c[i+1] + c[i+2])/3)   // Saco el promedio
-        
-        datos.data[i] = gris;                               // actualizo el color rojo para que sea gris
-        datos.data[i+1] = gris;                             // actualizo el color verde para que sea gris
-        datos.data[i+2] = gris;                             // actualizo el color azul para que sea gris
+onmessage = function(datos) {
+  console.log("Worker arrancado, vamos a trabajar");
+  
+  // Recorro cada píxel de la imagen (cada píxel está representado por 4 valores: R, G, B, A)
+  for (let i = 0; i < datos.data.length; i += 4) {  // Cada píxel tiene 4 valores (R, G, B, A)
+      let r = datos.data[i];     // Rojo
+      let g = datos.data[i + 1]; // Verde
+      let b = datos.data[i + 2]; // Azul
+
+      // Si quieres aplicar un poco más de cálculos para "estresar" al procesador
+      // sin efectos visibles, puedes hacer algo similar pero sin hacer loops innecesarios.
+      for (let j = 0; j < 100; j++) {
+          r *= 1.00000000045;
+          g *= 1.00000000045;
+          b *= 1.00000000045;
       }
-      //console.log(datos.data)
-      console.log("worker finalizado, devolvemos al hilo principal")
-     postMessage(datos.data)
-}
+
+      // Cálculo de gris: para mejor contraste, usamos una ponderación de colores.
+      let gris = Math.round(r * 0.3 + g * 0.59 + b * 0.11); // Promedio ponderado (más realista)
+
+      // Asigno el mismo valor a R, G, B para obtener la escala de grises
+      datos.data[i] = gris;     // Rojo
+      datos.data[i + 1] = gris; // Verde
+      datos.data[i + 2] = gris; // Azul
+  }
+
+  // Cuando terminamos el procesamiento, enviamos los datos al hilo principal
+  console.log("Worker finalizado, devolvemos los datos al hilo principal");
+  postMessage(datos.data);
+};
