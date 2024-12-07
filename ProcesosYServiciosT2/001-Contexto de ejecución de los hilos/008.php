@@ -1,22 +1,35 @@
 <?php
-	///////////////////// TAREAS /////////////////////////////////////////////////
-	
-    	$file = 'tareas.txt';				// Abro el archivo de tareas
+    ///////////////////// TAREAS //////////////////////////
 
-    	$lines = file($file);				// Me lee el contenido de las tareas
-	$tarea = $lines[0];				// Se queda con la primera tarea
-    	echo $lines[0];					// Me saca la primera tarea por pantalla (lo lleva a JS)
+    // Ruta al archivo de tareas
+    $file = 'tareas.txt';  
 
-    	array_shift($lines);				// Al archivo le quita la primera linea
+    // Lee el contenido del archivo de tareas y lo guarda en un array
+    $lines = file($file);  
 
-    	
-    	file_put_contents($file, implode('', $lines));	// Guarda esas lineas en el archivo (sobreescribe)
-    	
-    	///////////////////// ASIGNACIONES /////////////////////////////////////////////////
-    	
-    	$myfile = fopen("asignaciones.txt", "a");	// Abre un archivo
-	$txt = "Al usuario".$_GET['usuario']." le ha tocado la tarea: ".$tarea."\n";	// Guarda un registro
-	fwrite($myfile, $txt);				// escribe el registro
-	fclose($myfile);				// Cierra el archivo
+    // Se toma la primera tarea (la primera línea del archivo)
+    $tarea = $lines[0];  
 
+    // Envía la primera tarea al cliente (JavaScript)
+    echo $lines[0];  
+
+    // Elimina la primera línea (la tarea ya asignada)
+    array_shift($lines);  
+
+    // Guarda las líneas restantes en el archivo, sobrescribiendo el archivo original
+    file_put_contents($file, implode('', $lines));  
+
+    ///////////////////// ASIGNACIONES //////////////////////
+
+    // Abre el archivo de asignaciones para agregar una nueva entrada
+    $myfile = fopen("asignaciones.txt", "a");  
+
+    // Prepara el texto con la tarea asignada al usuario, capturado desde la URL
+    $txt = "Al usuario " . htmlspecialchars($_GET['usuario']) . " le ha tocado la tarea: " . $tarea . "\n";  
+
+    // Escribe el registro de asignación en el archivo
+    fwrite($myfile, $txt);  
+
+    // Cierra el archivo después de escribir
+    fclose($myfile);  
 ?>

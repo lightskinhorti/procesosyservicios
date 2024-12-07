@@ -1,33 +1,46 @@
 <!doctype html>
-<html>
-	<head>
-	
-	</head>
-	<body>	<input>
-		<script>
-			var entrada = document.querySelector("input")                       // Atrapamos la entrada
-			entrada.onchange = function(){                                      // Cuando la entrada cambie (fuerzo un evento)
-				console.log("Ok te has identificado como",this.value)             // Comprobamos que atrapamos la info del usuario
-				
-				///////////////// CLIENTE ---------> SERVIDOR ///////////////////////////////////////////////////////
-				
-				fetch("008.php?usuario="+encodeURI(this.value))                   // realizo una peticion asincrónica
-				.then(function(response){                                         // Cuando reciba la respuesta
-					return response.text()                                          // Hoy la quiero procesar como texto
-				})
-				.then(function(datos){                                            // Cuando esa conversión se haya realizado
-				///////////////// CLIENTE <---------- SERVIDOR //////////////////////////////////////////////////
-					console.log(datos)                                              // Pongo los datos en consola solo para comprobar que me llegan
-					let conjunto = JSON.parse(datos)                                // Convierto los datos de string a array
-					console.log(conjunto)                                           // Lo pongo en console como debug para comprobar que todo va ok
-					let suma = 0;                                                   // Creo una suma inicial
-					for(let i = 0;i<conjunto.length;i++){                           // Recorro el array
-						suma += conjunto[i]                                           // Y al valor anterior le sumo lo que valga ese elemento del array
-					}
-					///////////////// CLIENTE ---------> SERVIDOR //////////////////////////////////////////////////
-					fetch("008-resultado.php?resultado="+suma)                      // Y al final le devuelvo al servidor el resultado de la operacion
-				})
-			}
-		</script>
-	</body>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Tareas</title>
+  </head>
+  <body>
+    <input id="usuario" placeholder="Introduce tu usuario" />
+    
+    <script>
+      // Seleccionamos el input donde el usuario introduce su nombre
+      const entrada = document.querySelector("input");
+
+      // Escuchamos el evento 'change' cuando el usuario introduce su nombre
+      entrada.addEventListener("change", function() {
+        const usuario = this.value; // Obtenemos el valor introducido por el usuario
+        console.log("Ok, te has identificado como", usuario); // Confirmamos que hemos capturado el nombre
+
+        ////////////////// CLIENTE ---------> SERVIDOR ///////////////////////////////////////////////////////
+        // Realizamos una solicitud al servidor enviando el nombre del usuario
+        fetch(`008.php?usuario=${encodeURI(usuario)}`)
+          .then(response => response.text()) // Procesamos la respuesta como texto
+          .then(datos => {
+            console.log("Datos recibidos del servidor:", datos); // Verificamos que los datos llegaron correctamente
+            let conjunto = JSON.parse(datos); // Convertimos la respuesta de texto a un array
+            console.log("Conjunto de datos procesado:", conjunto); // Mostramos el array para depuración
+
+            // Calculamos la suma de los elementos del array
+            let suma = conjunto.reduce((acc, valor) => acc + valor, 0);
+            console.log("Suma calculada:", suma); // Mostramos la suma calculada
+
+            ////////////////// CLIENTE ---------> SERVIDOR //////////////////////////////////////////////////
+            // Enviamos el resultado al servidor para que lo procese
+            fetch(`008-resultado.php?resultado=${suma}`)
+              .then(response => response.text()) // Procesamos la respuesta como texto
+              .then(resultado => {
+                console.log("Resultado enviado al servidor:", resultado); // Confirmamos que el resultado se envió correctamente
+              })
+              .catch(error => console.error("Error al enviar el resultado al servidor:", error)); // Manejo de errores
+          })
+          .catch(error => console.error("Error al obtener los datos del servidor:", error)); // Manejo de errores
+      });
+    </script>
+  </body>
 </html>
