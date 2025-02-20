@@ -1,0 +1,7 @@
+[2025-02-21 00:46:18] Servidor iniciado en localhost:808
+[2025-02-21 00:47:13] Conexión establecida desde ('127.0.0.1', 65178)
+[2025-02-21 00:47:13] Conexiones activas: 1
+[2025-02-21 00:47:15] Mensaje de 127.0.0.1: hola
+[2025-02-21 00:47:22] Mensaje de 127.0.0.1: hola como estoy
+[2025-02-21 00:51:49] Conexión con ('127.0.0.1', 65178) reseteada
+[2025-02-21 00:51:49] Conexión con ('127.0.0.1', 65178) cerrada
