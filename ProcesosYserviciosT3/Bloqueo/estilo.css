@@ -1,0 +1,96 @@
+/* Estilo global */
+body {
+  font-family: 'Arial', sans-serif; /* Fuente moderna */
+  background-color: #f4f7fc; /* Fondo suave */
+  color: #333; /* Texto oscuro para buena legibilidad */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor principal para el formulario */
+h2 {
+  text-align: center;
+  color: #4f6d7a; /* Color del título */
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Formulario */
+form {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  padding: 30px;
+  width: 100%;
+  max-width: 400px; /* Maximo ancho */
+}
+
+/* Etiquetas */
+label {
+  font-size: 16px;
+  color: #4f6d7a; /* Color suave para las etiquetas */
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Campos de entrada */
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc; /* Borde suave */
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  transition: border-color 0.3s ease; /* Transición suave en el borde */
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+  border-color: #667eea; /* Borde color azul al estar enfocado */
+  outline: none;
+}
+
+/* Botón de submit */
+button[type="submit"] {
+  width: 100%;
+  background-color: #667eea; /* Fondo azul */
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición suave para el botón */
+}
+
+button[type="submit"]:hover {
+  background-color: #5c6fdb; /* Cambio de color al pasar el mouse */
+}
+
+/* Espaciado y márgenes generales */
+br {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Estilo para mensajes de error o validación */
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Diseño responsive para dispositivos móviles */
+@media (max-width: 600px) {
+  h2 {
+      font-size: 20px;
+  }
+
+  form {
+      padding: 20px;
+  }
+}
