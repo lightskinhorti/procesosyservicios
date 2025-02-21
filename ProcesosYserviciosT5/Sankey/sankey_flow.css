@@ -1,0 +1,97 @@
+/* 
+  SankeyFlow CSS - Estilos para diagramas Sankey interactivos con SVG
+  ----------------------------------------------------------------------------
+  Este archivo define el estilo de los elementos principales del diagrama:
+  - Contenedor y SVG
+  - Nodos (grupo, rectángulos y textos)
+  - Enlaces con degradados y transiciones
+  - Botón de exportación (nueva funcionalidad)
+*/
+
+/* Reset básico para evitar inconsistencias */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Opcional: Si usas un contenedor específico, asegúrate de que sea posicionable */
+.sankey-flow-container {
+  position: relative;
+}
+
+/* ======================
+   Estilos para el SVG del diagrama
+   ====================== */
+.sankey-flow-svg {
+  display: block;              /* Centrado automático */
+  margin: 0 auto;              /* Centrado horizontal */
+  background-color: #f9f9f9;     /* Fondo claro para resaltar elementos */
+  border: 1px solid #ddd;        /* Borde sutil */
+}
+
+/* ======================
+   Estilos para los enlaces (links)
+   ====================== */
+.sankey-flow-link {
+  transition: stroke-width 0.3s ease, opacity 0.3s ease; /* Transiciones suaves en interacciones */
+  cursor: pointer;
+}
+
+/* ======================
+   Estilos para los nodos
+   ====================== */
+.sankey-flow-node {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Estilos para los rectángulos de los nodos */
+.sankey-flow-node rect {
+  transition: filter 0.3s ease; /* Efecto de brillo al pasar el mouse */
+}
+
+/* Estilos para el texto dentro de los nodos */
+.sankey-flow-text {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  fill: #333;                   /* Color de texto oscuro */
+  pointer-events: none;         /* El texto no interfiere con la interacción del nodo */
+}
+
+/* ======================
+   Estilos para el tooltip global
+   (Nota: El tooltip se crea mediante JS y tiene estilos inline, pero aquí se pueden sobreescribir si se requiere)
+   ====================== */
+.tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  pointer-events: none;
+  display: none;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+/* ======================
+   NUEVA FUNCIONALIDAD: Estilos para el botón de exportación a PNG
+   ====================== */
+.sankey-flow-export-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #667eea;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+/* Hover para el botón de exportación */
+.sankey-flow-export-btn:hover {
+  background-color: #5c6fdb;
+}
